@@ -1,0 +1,26 @@
+#puzzleMain div {
+    position:relative;
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+#puzzleMain {
+    background:black;
+    margin:auto;
+    padding: 0 !important;
+}
+
+#drag4,
+#drag5,
+#drag6,
+#drag7,
+#drag8,
+#drag9,
+#drag10,
+#drag11,
+#drag12 {
+    height: 200px;
+    width: 200px;
+    display: inline-block;
+}
