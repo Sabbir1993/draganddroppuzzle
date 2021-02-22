@@ -1,10 +1,10 @@
 {
   "name": "@sabbir1055/drag-drop-puzzle",
-  "version": "1.0.2",
-  "description": "drag and drop puzzlw game\u001b[D\u001b[D\u001b[D\u001b[D\u001b[e",
+  "version": "1.0.3",
+  "description": "drag and drop puzzle game",
   "main": "./build/index.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack --mode production"
   },
   "keywords": [
     "drand",

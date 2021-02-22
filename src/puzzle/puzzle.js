@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import './puzzle.css'
 
-export default function DragAndDrop({width = 600, height = 600, XLength = 4, YLength= 4, imgUrl = '', getResult}) {
+export default function DragAndDrop({width = 600, height = 600, XLength = 4, YLength= 4, imgUrl = '',parentClass, childClass, getResult}) {
 
     const [tiles, setTiles] = useState([])
     const [shuffleTiles, setShuffleTiles] = useState([])
-    
+
     const splitImage = () => {
         var img = new Image();
         img.onload = function() {
@@ -31,9 +31,9 @@ export default function DragAndDrop({width = 600, height = 600, XLength = 4, YLe
             setShuffleTiles(dataShuffleSet.sort(() => Math.random() - 0.5))
         }
         img.src = imgUrl;
-    
+
     }
-    
+
     const create_UUID = () => {
         var dt = new Date().getTime();
         var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -43,11 +43,11 @@ export default function DragAndDrop({width = 600, height = 600, XLength = 4, YLe
         });
         return uuid;
     }
-    
+
     const allowDrop = (ev) => {
         ev.preventDefault();
     }
-    
+
     const drag = (ev) => {
         let data = {
             text: ev.target.id,
@@ -55,7 +55,7 @@ export default function DragAndDrop({width = 600, height = 600, XLength = 4, YLe
         }
         ev.dataTransfer.setData("text", JSON.stringify(data));
     }
-    
+
     const drop = async (ev) => {
         ev.preventDefault();
         var dataFromTransfer = ev.dataTransfer.getData("text") ? JSON.parse(ev.dataTransfer.getData("text")) : null
@@ -66,13 +66,13 @@ export default function DragAndDrop({width = 600, height = 600, XLength = 4, YLe
             // child content
             var curChildElement = new XMLSerializer().serializeToString(document.getElementById(ev.target.id))
             var oldChildElement = new XMLSerializer().serializeToString(document.getElementById(dataFromTransfer.text))
-    
+
             if (oldChildElement && parentNode){
-    
+
                 document.getElementById(parentNode).innerHTML = curChildElement
                 document.getElementById(curParentElement).innerHTML = oldChildElement
                 var list = document.querySelectorAll('*[id*=div] *[id*="drag"]')
-    
+
                 var dataSet = await list.forEach(function(el) {
                     el.addEventListener("dragstart", function (ev) {
                         drag(ev)
@@ -82,7 +82,7 @@ export default function DragAndDrop({width = 600, height = 600, XLength = 4, YLe
             }
         }
     }
-    
+
     const findResult = async () => {
         var key = 0, resultSuccess = 0
         var list = document.querySelectorAll('*[id*=div] *[id*="drag"]')
@@ -99,20 +99,20 @@ export default function DragAndDrop({width = 600, height = 600, XLength = 4, YLe
             getResult('keep trying')
         }
     }
-    
+
     useEffect(async () => {
         splitImage()
         findResult()
     },[1])
-    
+
     return (
         <>
             <div id="puzzleMain" style={{width: width, height: height}}>
                 {
                     shuffleTiles.length ? shuffleTiles.map( (tilesData, key) => {
                             return(
-                                <div id={'div'+(key+1)} onDrop={drop} onDragOver={allowDrop} key={key} style={{width: width/XLength, height: height/YLength}}>
-                                    <div id={"drag"+(key+1)} draggable={true} onDragStart={drag} style={{...tilesData.style}} data-index={tilesData.id}></div>
+                                <div id={'div'+(key+1)} className={parentClass} onDrop={drop} onDragOver={allowDrop} key={key} style={{width: width/XLength, height: height/YLength}}>
+                                    <div id={"drag"+(key+1)} className={childClass} draggable={true} onDragStart={drag} style={{...tilesData.style}} data-index={tilesData.id}></div>
                                 </div>
                             )
                         })
