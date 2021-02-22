@@ -1,5 +1,5 @@
 import React from 'react'
-import Puzzle from 'drag-drop-puzzle'
+import Puzzle from '@sabbir1055/drag-drop-puzzle'
 function App() {
 
   const finalResult = (data) => {
@@ -8,7 +8,7 @@ function App() {
 
   return (
       <>
-        <Puzzle width = {600} height = {600} XLength = {4} YLength = {4} imgUrl = 'https://cdn.britannica.com/68/6268-050-04FB8622/Bangladesh.jpg' getResult = {finalResult}/>
+        <Puzzle width = {600} height = {600} XLength = {4} YLength = {4} imgUrl = 'https://cdn.jpegmini.com/user/images/slider_puffin_before_mobile.jpg' getResult = {finalResult}/>
       </>
   )
 }
